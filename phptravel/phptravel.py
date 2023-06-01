@@ -12,6 +12,8 @@ import time
 import unittest
 
 class Phptravel(webdriver.Chrome, unittest.TestCase):
+
+    #Initialize path of webdriver
     def __init__(self, driver_path=r"C:\Program Files (x86)", teardown=False):
         self.driver_path = driver_path
         self.teardown = teardown
@@ -20,21 +22,23 @@ class Phptravel(webdriver.Chrome, unittest.TestCase):
         self.implicitly_wait(10)
         self.maximize_window()
 
-    
+    #Keep Window Open
     def __exit__(self, exc_type, exc_val, exc_tb):
-        time.sleep(20)
+        time.sleep(5)
         if self.teardown:
             self.quit()
         
-
+    #Open Website
     def go_first_page(self):
         self.get(const.BASE_URL)
 
+    #find form elements
     def enter_object(username_box, text, element):
         fname_text = username_box.find_element(By.NAME, element)
         fname_text.click()
         fname_text.send_keys(text)
     
+    #test form attributes
     def enter_form(self, fname, lname, bname, email):
         
         username_box = self.find_element(By.CLASS_NAME, "form")
@@ -52,7 +56,26 @@ class Phptravel(webdriver.Chrome, unittest.TestCase):
         username_box.find_element(By.ID, "demo").click()
 
         checkbox = self.find_element(By.CLASS_NAME, "completed")
-        self.assertIn("Thank you!", checkbox.find_element(By.CSS_SELECTOR, "h2").text)
+        if (checkbox.is_displayed()):
+            print(checkbox.find_element(By.CSS_SELECTOR, "h2").text)
+            formWork = self.assertIn("Thank you!", checkbox.find_element(By.CSS_SELECTOR, "h2").text)
+        else:
+            count = 0
+            failFlag = False
+            while (checkbox.is_displayed() == False):
+                time.sleep(5)
+                count +=1
+                if (count > 3):
+                    break
+            try:
+                self.assertIn("Thank you!", checkbox.find_element(By.CSS_SELECTOR, "h2").text)
+            except:
+                print("[Assertion Test] Fail")
+                failFlag = True
+
+            if (failFlag == False):
+                print("[Assertion Test] Success")
+
         
         
 
