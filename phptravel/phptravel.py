@@ -1,3 +1,4 @@
+
 import types
 import typing
 from selenium import webdriver
@@ -8,6 +9,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait 
 import selenium.webdriver.support.expected_conditions as EC
 import time
+
 
 import unittest
 
@@ -31,6 +33,7 @@ class Phptravel(webdriver.Chrome, unittest.TestCase):
     #Open Website
     def go_first_page(self):
         self.get(const.BASE_URL)
+        
 
     #find form elements
     def enter_object(username_box, text, element):
