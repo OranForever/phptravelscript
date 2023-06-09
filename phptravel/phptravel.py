@@ -8,6 +8,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait 
 import selenium.webdriver.support.expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import StaleElementReferenceException
 import time
 
 
@@ -79,10 +81,21 @@ class Phptravel(webdriver.Chrome, unittest.TestCase):
             if (failFlag == False):
                 print("[Assertion Test] Success")
 
+
     def test_Buttons(self):
         button = self.find_element(By.CLASS_NAME, "nav_left")
-        print(self.title)
-
+        ignored_exceptions=(NoSuchElementException,StaleElementReferenceException)
+        for x in const.BUTTONS:
+            print("[Assertion Test] Testing Button " + x)
+            button = self.find_element(By.CLASS_NAME, "nav_left")
+            current_button = button.find_element(By.LINK_TEXT, x)
+            if current_button.is_enabled:
+                current_button.click() 
+                print("[Assertion Test] Success, " + x + " button is enabled and is functional")
+            else: 
+                print("[Assertion Test] Failure, " + x + " button is not enabled")
+    def test_dropdown(self):
+        print("placement")
         
         
 
