@@ -79,6 +79,10 @@ class Phptravel(webdriver.Chrome, unittest.TestCase):
             if (failFlag == False):
                 print("[Assertion Test] Success")
 
+    def test_Buttons(self):
+        button = self.find_element(By.CLASS_NAME, "nav_left")
+        print(self.title)
+
         
         
 
