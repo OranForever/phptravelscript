@@ -10,6 +10,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 import selenium.webdriver.support.expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
+from selenium.webdriver.support.select import Select
 import time
 
 
@@ -95,6 +96,11 @@ class Phptravel(webdriver.Chrome, unittest.TestCase):
             else: 
                 print("[Assertion Test] Failure, " + x + " button is not enabled")
     def test_dropdown(self):
+        select = Select(self.find_element(By.CLASS_NAME, "dropbtn"))
+        for index in range(len(select.options)):
+            select = Select(self.find_element(By.CLASS_NAME, "dropbtn"))
+            select.select_by_index(index)
+            print(select.select_by_visible_text())
         print("placement")
         
         

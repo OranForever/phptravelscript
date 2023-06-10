@@ -10,7 +10,7 @@ with Phptravel(teardown=True) as bot:
         raise Exception("[Assertion Test] Fail, Unable to load page")
     else:
         print("[Assertion Test] Success")
-    bot.test_Buttons()
+    #bot.test_Buttons()
     bot.test_dropdown()
     print("[Assertion Test] first name: Nick, last name: Cage, business name: Dior, email: nickcage@gmail.com")
     #bot.enter_form("Nick", "Cage", "Dior", "nickcage@gmail.com")
